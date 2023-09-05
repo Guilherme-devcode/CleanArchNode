@@ -1,4 +1,4 @@
-import { v4 as uuidV4 } from "uuid";
+import { v4 as uuidV4 } from 'uuid'
 
 export abstract class Entity<Props = any> {
   public readonly _id: string
@@ -9,9 +9,8 @@ export abstract class Entity<Props = any> {
     this._id = id || uuidV4()
   }
 
-
   get id(): string {
-    return this.id
+    return this._id
   }
 
   public toJSON(): Required<{ id: string } & Props> {
@@ -21,4 +20,3 @@ export abstract class Entity<Props = any> {
     } as Required<{ id: string } & Props>
   }
 }
-
