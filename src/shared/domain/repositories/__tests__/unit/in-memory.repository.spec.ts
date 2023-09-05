@@ -43,4 +43,27 @@ describe('InMemoryRepository', () => {
     const result = await sut.findAll()
     expect([entity]).toStrictEqual(result)
   })
+  it('Should update an entity', async () => {
+    const entity = new StubEntity({ name: 'TestName', price: 50 })
+    await sut.insert(entity)
+    const updatedEntity = new StubEntity(
+      {
+        name: 'UpdatedName',
+        price: 100,
+      },
+      entity._id,
+    )
+    await sut.update(updatedEntity)
+    const result = await sut.findById(updatedEntity.id)
+    expect(updatedEntity.toJSON()).toStrictEqual(result.toJSON())
+  })
+
+  it('Should delete an entity', async () => {
+    const entity = new StubEntity({ name: 'TestName', price: 50 })
+    await sut.insert(entity)
+    await sut.delete(entity.id)
+    await expect(sut.findById(entity.id)).rejects.toThrow(
+      new NotFoundError('Entity not found'),
+    )
+  })
 })

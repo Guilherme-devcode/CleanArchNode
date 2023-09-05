@@ -41,7 +41,7 @@ export abstract class InMemoryRepository<E extends Entity>
 
   protected async _getIndex(id: string): Promise<number> {
     const index = this.items.findIndex(entity => entity.id === id)
-    if (!index) {
+    if (index == null || index == undefined) {
       throw new NotFoundError('Entity not found')
     }
     return index
