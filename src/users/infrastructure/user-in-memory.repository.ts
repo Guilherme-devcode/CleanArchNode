@@ -1,11 +1,11 @@
 import { ConflictError } from '@/shared/domain/errors/conflict-error'
 import { NotFoundError } from '@/shared/domain/errors/not-found-error'
-import { InMemoryRepository } from '@/shared/domain/repositories/in-memory.repository'
+import { InMemorySearchableRepository } from '@/shared/domain/repositories/in-memory-searchable.repository'
 import { UserRepository } from '../domain/repositories/user.repository'
 import { UserEntity } from '../entities/user.entity'
 
 export class UserInMemoryRepository
-  extends InMemoryRepository<UserEntity>
+  extends InMemorySearchableRepository<UserEntity>
   implements UserRepository
 {
   async findByEmail(email: string): Promise<UserEntity> {
